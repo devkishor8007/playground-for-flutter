@@ -12,8 +12,8 @@ void main() {
 
   client
           .setEndpoint(
-              'https://localhost/v1') // Make sure your endpoint is accessible from your emulator, use IP if needed
-          .setProject('60793ca4ce59e') // Your project ID
+              'https://192.168.1.12/v1') // Make sure your endpoint is accessible from your emulator, use IP if needed
+          .setProject('60f060f24f04a') // Your project ID
           .setSelfSigned() // Do not use this in production
       // .addHeader('Origin', 'http://localhost')
       ;
@@ -123,8 +123,11 @@ class PlaygroundState extends State<Playground> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Appwrite + Flutter = ❤️"),
-          backgroundColor: Colors.pinkAccent[200]),
+        title: Text(
+          "Appwrite + Flutter = ❤️",
+        ),
+        backgroundColor: Colors.pinkAccent[200],
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -168,7 +171,9 @@ class PlaygroundState extends State<Playground> {
                       _getAccount();
                     }).catchError((error) {
                       print(error.message);
-                    }, test: (e) => e is AppwriteException);
+                    }, test: (e) {
+                      return e is AppwriteException;
+                    });
                   }),
               Padding(padding: EdgeInsets.all(20.0)),
               ElevatedButton(
@@ -185,7 +190,7 @@ class PlaygroundState extends State<Playground> {
                     widget.database
                         .createDocument(
                             collectionId:
-                                '607fcdd228202', //change your collection id
+                                '60f069ca6a4d4', //change your collection id
                             data: {'username': 'hello2'},
                             read: ['*'],
                             write: ['*'])
